@@ -1,0 +1,402 @@
+openapi: 3.1.0
+info:
+  title: Ostrom Auth Webhooks API
+  version: '2023-11-01'
+  description: 'The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.
+
+    '
+  license:
+    name: Ostrom Commercial License
+    url: https://ostrom.de
+servers:
+- url: https://sandbox.ostrom-api.io
+  description: Sandbox environment (test data)
+- url: https://production.ostrom-api.io
+  description: Production environment (live data)
+- url: https://auth.sandbox.ostrom-api.io
+  description: Authentication sandbox environment (generate access token - test data)
+- url: https://auth.production.ostrom-api.io
+  description: Authentication production environment (generate access token - live data)
+tags:
+- name: Webhooks
+  description: Describe how to create webhooks and receive notifications from our system.
+paths:
+  /webhooks:
+    post:
+      tags:
+      - Webhooks
+      operationId: createWebhook
+      summary: Create a new webhook
+      description: 'Allowed role: `PARTNER`'
+      security:
+      - ClientAccessToken: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - url
+              - secret
+              properties:
+                url:
+                  type: string
+                  description: The URL of the webhook
+                secret:
+                  type: string
+                  description: The secret of the webhook
+      responses:
+        '200':
+          description: Successful webhook creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateWebhookResponse'
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+    get:
+      tags:
+      - Webhooks
+      operationId: getWebhooks
+      summary: Retrieve all webhooks
+      description: 'Allowed role: `PARTNER`'
+      security:
+      - ClientAccessToken: []
+      responses:
+        '200':
+          description: Successful webhook data fetch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWebhooksResponse'
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '404':
+          description: Entity with the provided id was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError404'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+  /webhooks/{id}:
+    get:
+      tags:
+      - Webhooks
+      operationId: getWebhook
+      summary: Retrieve a webhook
+      description: 'Allowed role: `PARTNER`'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+        description: ID of the webhook
+      security:
+      - ClientAccessToken: []
+      responses:
+        '200':
+          description: Successful webhook data fetch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWebhookResponse'
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '404':
+          description: Entity with the provided id was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError404'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+    delete:
+      tags:
+      - Webhooks
+      operationId: deleteWebhook
+      summary: Delete a webhook
+      description: 'Allowed role: `PARTNER`'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+        description: ID of the webhook
+      security:
+      - ClientAccessToken: []
+      responses:
+        '200':
+          description: Successful webhook deletion
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteWebhookResponse'
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '404':
+          description: Entity with the provided id was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError404'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+  /webhooks/{id}/test:
+    post:
+      tags:
+      - Webhooks
+      operationId: testWebhook
+      summary: Test a webhook
+      description: 'Allowed role: `PARTNER`'
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: number
+        required: true
+        description: ID of the webhook
+      security:
+      - ClientAccessToken: []
+      responses:
+        '200':
+          description: Successful webhook test
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestWebhookResponse'
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '404':
+          description: Entity with the provided id was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError404'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+components:
+  schemas:
+    DeleteWebhookResponse:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
+          type: string
+          description: The id of the partner's client application that owns the webhook
+        url:
+          type: string
+          description: The url where the webhook events will be sent
+      example:
+        id: '12345'
+        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
+        url: https://partner-example.com/webhook
+    GetWebhooksResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: webhook data
+          items:
+            $ref: '#/components/schemas/GetWebhooksItemResponse'
+    GetWebhooksItemResponse:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
+          type: string
+          description: The id of the partner's client application that owns the webhook
+        url:
+          type: string
+          description: The url where the webhook events will be sent
+      example:
+        id: '12345'
+        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
+        url: https://partner-example.com/webhook
+    CreateWebhookResponse:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
+          type: string
+          description: The id of the partner's client application that owns the webhook
+        url:
+          type: string
+          description: The url where the webhook events will be sent
+      example:
+        id: '12345'
+        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
+        url: https://partner-example.com/webhook
+    GetWebhookResponse:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
+          type: string
+          description: The id of the partner's client application that owns the webhook
+        url:
+          type: string
+          description: The url where the webhook events will be sent
+      example:
+        id: '12345'
+        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
+        url: https://partner-example.com/webhook
+    UnauthorizedError401:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: unauthorized
+        detail: Unauthorized API access.
+    BadRequestError400:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: bad_request
+        detail: invalid fields array...
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
+    TestWebhookResponse:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
+          type: string
+          description: The id of the partner's client application that owns the webhook
+        url:
+          type: string
+          description: The url where the webhook events will be sent
+      example:
+        id: '12345'
+        clientApplicationId: 19b79v2f5bd594405342deoebc38df1
+        url: https://partner-example.com/webhook
+  securitySchemes:
+    ClientAccessToken:
+      type: oauth2
+      description: 'A `ClientAccessToken` is obtained via the [OAuth 2.0 Client Credentials grant](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/) and carries authorization to access all functionalities and data in your Ostrom account. Full details at [The ClientAccessToken](/api/reference#getting-an-access-token)
+
+        '
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.sandbox.ostrom-api.io/oauth2/token
+          scopes: {}
+    OAuth2BasicAuth:
+      type: http
+      scheme: basic

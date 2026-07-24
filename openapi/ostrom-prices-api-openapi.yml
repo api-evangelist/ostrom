@@ -1,0 +1,205 @@
+openapi: 3.1.0
+info:
+  title: Ostrom Auth Prices API
+  version: '2023-11-01'
+  description: 'The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.
+
+    '
+  license:
+    name: Ostrom Commercial License
+    url: https://ostrom.de
+servers:
+- url: https://sandbox.ostrom-api.io
+  description: Sandbox environment (test data)
+- url: https://production.ostrom-api.io
+  description: Production environment (live data)
+- url: https://auth.sandbox.ostrom-api.io
+  description: Authentication sandbox environment (generate access token - test data)
+- url: https://auth.production.ostrom-api.io
+  description: Authentication production environment (generate access token - live data)
+tags:
+- name: Prices
+  description: Describe how to fetch information related with prices
+paths:
+  /spot-prices:
+    get:
+      operationId: getSpotPrices
+      tags:
+      - Prices
+      summary: Retrieve day-ahead spot price information
+      description: 'Allowed role: `USER` or `PARTNER`'
+      parameters:
+      - in: query
+        name: startDate
+        schema:
+          type: string
+          format: date-time
+        required: true
+        description: start date ISO format on UTC timezone. e.g. 2023-11-01T00:00:00.000Z
+      - in: query
+        name: endDate
+        schema:
+          type: string
+          format: date-time
+        required: true
+        description: end date ISO format on UTC timezone. e.g. 2023-11-02T00:00:00.000Z
+      - in: query
+        name: resolution
+        schema:
+          type: string
+          enum:
+          - HOUR
+        required: true
+        description: The unit of time the data will be aggregated
+      - in: query
+        name: zip
+        schema:
+          type: string
+        description: Zip code used to fetch Ostrom base price, gridFees, tax and levies. If not provided the respective values are returned as zero.
+      security:
+      - ClientAccessToken: []
+      responses:
+        '200':
+          description: Successful spot price data fetch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSpotPriceResponse'
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '404':
+          description: Entity with the provided id was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError404'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+components:
+  schemas:
+    BadRequestError400:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: bad_request
+        detail: invalid fields array...
+    UnauthorizedError401:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: unauthorized
+        detail: Unauthorized API access.
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
+    GetSpotPriceItemResponse:
+      type: object
+      properties:
+        date:
+          type: string
+          description: The date of the day-ahead spot price data (start from)
+          example: '2023-10-22T01:00:00.000Z'
+        netMwhPrice:
+          type: number
+          description: The MWh day-ahead spot price without VAT in EUR
+          example: 926
+        netKwhPrice:
+          type: number
+          description: The kWh day-ahead spot price without VAT in cents
+          example: 92.6
+        grossKwhPrice:
+          type: number
+          description: The kWh day-ahead spot price with VAT in cents
+          example: 110.2
+        netKwhTaxAndLevies:
+          type: number
+          description: The kWh taxes and levies day-ahead spot price without VAT in cents
+          example: 16.2
+        grossKwhTaxAndLevies:
+          type: number
+          description: The kWh taxes and levies day-ahead spot price with VAT in cents
+          example: 19.28
+        netMonthlyOstromBaseFee:
+          type: number
+          description: The monthly Ostrom base fee without VAT in EUR
+          example: 5.04
+        grossMonthlyOstromBaseFee:
+          type: number
+          description: The monthly Ostrom base fee with VAT in EUR
+          example: 6
+        netMonthlyGridFees:
+          type: number
+          description: The monthly grid fees without VAT in EUR
+          example: 3.84
+        grossMonthlyGridFees:
+          type: number
+          description: The monthly grid fees with VAT in EUR
+          example: 4.57
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
+    GetSpotPriceResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: The spot price data
+          items:
+            $ref: '#/components/schemas/GetSpotPriceItemResponse'
+  securitySchemes:
+    ClientAccessToken:
+      type: oauth2
+      description: 'A `ClientAccessToken` is obtained via the [OAuth 2.0 Client Credentials grant](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/) and carries authorization to access all functionalities and data in your Ostrom account. Full details at [The ClientAccessToken](/api/reference#getting-an-access-token)
+
+        '
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.sandbox.ostrom-api.io/oauth2/token
+          scopes: {}
+    OAuth2BasicAuth:
+      type: http
+      scheme: basic

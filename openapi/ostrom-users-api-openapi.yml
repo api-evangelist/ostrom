@@ -1,0 +1,274 @@
+openapi: 3.1.0
+info:
+  title: Ostrom Auth Users API
+  version: '2023-11-01'
+  description: 'The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.
+
+    '
+  license:
+    name: Ostrom Commercial License
+    url: https://ostrom.de
+servers:
+- url: https://sandbox.ostrom-api.io
+  description: Sandbox environment (test data)
+- url: https://production.ostrom-api.io
+  description: Production environment (live data)
+- url: https://auth.sandbox.ostrom-api.io
+  description: Authentication sandbox environment (generate access token - test data)
+- url: https://auth.production.ostrom-api.io
+  description: Authentication production environment (generate access token - live data)
+tags:
+- name: Users
+  description: Describe how to fetch information related with users
+paths:
+  /me:
+    get:
+      tags:
+      - Users
+      operationId: getMe
+      summary: Retrieve user information
+      description: 'Allowed role: `USER`'
+      security:
+      - ClientAccessToken: []
+      responses:
+        '200':
+          description: Successful user data fetch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMeResponse'
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '404':
+          description: Entity with the provided id was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError404'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+  /users/link:
+    post:
+      tags:
+      - Users
+      operationId: linkUser
+      summary: Link user to a partner client application
+      description: 'Allowed role: `PARTNER`'
+      security:
+      - ClientAccessToken: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - externalUserId
+              - language
+              - redirectUrl
+              - scopes
+              properties:
+                externalUserId:
+                  type: string
+                  description: Partner user unique identifier
+                referralCode:
+                  type: string
+                  description: Partner referral code to provide a discount to the user in case of signup, if not provided the signup is disabled during the account linking.
+                language:
+                  type: string
+                  enum:
+                  - en-US
+                  - de-DE
+                  description: Language of the Ostrom connect page.
+                redirectUrl:
+                  type: string
+                  description: Partner mobile app page link where the user is redirected after connect the contract.
+                scopes:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - order:read:data
+                    - contract:read:data
+                  description: The scopes you wish to request access to when linking the user contract.
+      responses:
+        '200':
+          description: Successful user link
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserLinkResponse'
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '404':
+          description: Entity with the provided id was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError404'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+  /users/{externalUserId}/disconnect:
+    delete:
+      tags:
+      - Users
+      operationId: disconnectUser
+      summary: Disconnect user from partner client application
+      description: 'Allowed role: `PARTNER`'
+      parameters:
+      - in: path
+        name: externalUserId
+        schema:
+          type: string
+        required: true
+        description: Partner user unique identifier
+      security:
+      - ClientAccessToken: []
+      responses:
+        '200':
+          description: Successful user disconnection
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '404':
+          description: Entity with the provided id was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError404'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+components:
+  schemas:
+    BadRequestError400:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: bad_request
+        detail: invalid fields array...
+    GetMeResponse:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email address of the user
+        firstName:
+          type: string
+          description: The first name of the user
+        lastName:
+          type: string
+          description: The last name of the user
+        language:
+          type: string
+          description: The language of the user
+          enum:
+          - ENGLISH
+          - GERMAN
+      example:
+        email: dummy-email@ostrom-api.io
+        firstName: Max
+        lastName: Mustermann
+        language: GERMAN
+    UnauthorizedError401:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: unauthorized
+        detail: Unauthorized API access.
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
+    UserLinkResponse:
+      type: object
+      properties:
+        linkUrl:
+          type: string
+          description: The url used inside the partner app to open the Ostrom linking page
+      example:
+        linkUrl: https://join.ostrom.de/link?id=hZTY3Zjc3QDI2YzI1MDExLTdhYTctNGE2NS1iNjBmLTZmMzc5NmRhODUyMDowNDViYjFiYmE0M2Y5NDU5YTc5OTgxZmEyYTg1Nm
+  securitySchemes:
+    ClientAccessToken:
+      type: oauth2
+      description: 'A `ClientAccessToken` is obtained via the [OAuth 2.0 Client Credentials grant](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/) and carries authorization to access all functionalities and data in your Ostrom account. Full details at [The ClientAccessToken](/api/reference#getting-an-access-token)
+
+        '
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.sandbox.ostrom-api.io/oauth2/token
+          scopes: {}
+    OAuth2BasicAuth:
+      type: http
+      scheme: basic

@@ -1,0 +1,245 @@
+openapi: 3.1.0
+info:
+  title: Ostrom Auth Orders API
+  version: '2023-11-01'
+  description: 'The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.
+
+    '
+  license:
+    name: Ostrom Commercial License
+    url: https://ostrom.de
+servers:
+- url: https://sandbox.ostrom-api.io
+  description: Sandbox environment (test data)
+- url: https://production.ostrom-api.io
+  description: Production environment (live data)
+- url: https://auth.sandbox.ostrom-api.io
+  description: Authentication sandbox environment (generate access token - test data)
+- url: https://auth.production.ostrom-api.io
+  description: Authentication production environment (generate access token - live data)
+tags:
+- name: Orders
+  description: Describe how to fetch information related with orders
+paths:
+  /users/{externalUserId}/orders:
+    get:
+      operationId: getOrdersByExternalUserId
+      tags:
+      - Orders
+      summary: Retrieve user orders information by external user id
+      description: 'Allowed role: `PARTNER`'
+      parameters:
+      - in: path
+        name: externalUserId
+        schema:
+          type: string
+        required: true
+        description: Partner user unique identifier
+      security:
+      - ClientAccessToken: []
+      responses:
+        '200':
+          description: Successful user order data fetch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrdersResponse'
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '404':
+          description: Entity with the provided id was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError404'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+  /users/{externalUserId}/orders/{orderId}:
+    get:
+      operationId: getOrderByExternalUserId
+      tags:
+      - Orders
+      summary: Retrieve user order information by external user id
+      description: 'Allowed role: `PARTNER`'
+      parameters:
+      - in: path
+        name: externalUserId
+        schema:
+          type: string
+        required: true
+        description: Partner user unique identifier
+      - in: path
+        name: orderId
+        schema:
+          type: number
+        required: true
+        description: ID of the order
+      security:
+      - ClientAccessToken: []
+      responses:
+        '200':
+          description: Successful user order data fetch
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrdersItemResponse'
+        '400':
+          description: The request is invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError400'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError401'
+        '404':
+          description: Entity with the provided id was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError404'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TooManyRequestError429'
+components:
+  schemas:
+    GetOrdersAddressResponse:
+      type: object
+      description: The address of the order
+      properties:
+        zip:
+          type: string
+          description: The zip code of the address
+        city:
+          type: string
+          description: The city of the address
+        street:
+          type: string
+          description: The street of the address
+        houseNumber:
+          type: string
+          description: The house number of the address
+    BadRequestError400:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: bad_request
+        detail: invalid fields array...
+    UnauthorizedError401:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: unauthorized
+        detail: Unauthorized API access.
+    GetOrdersItemResponse:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The id of the order
+        type:
+          type: string
+          description: type of the order
+        productCode:
+          type: string
+          description: Product code of the order
+        status:
+          type: string
+          description: Status of the order
+        customerFirstName:
+          type: string
+          description: Customer first name
+        customerLastName:
+          type: string
+          description: Customer last name
+        address:
+          $ref: '#/components/schemas/GetOrdersAddressResponse'
+      example:
+        id: '100523456'
+        type: ELECTRICITY
+        productCode: SIMPLY_DYNAMIC
+        status: VERIFIED
+        customerFirstName: Max
+        customerLastName: Mustermann
+        address:
+          zip: '22083'
+          city: Hamburg
+          street: Mozartstr.
+          houseNumber: '35'
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
+    GetOrdersResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: Order data
+          items:
+            $ref: '#/components/schemas/GetOrdersItemResponse'
+  securitySchemes:
+    ClientAccessToken:
+      type: oauth2
+      description: 'A `ClientAccessToken` is obtained via the [OAuth 2.0 Client Credentials grant](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/) and carries authorization to access all functionalities and data in your Ostrom account. Full details at [The ClientAccessToken](/api/reference#getting-an-access-token)
+
+        '
+      flows:
+        clientCredentials:
+          tokenUrl: https://auth.sandbox.ostrom-api.io/oauth2/token
+          scopes: {}
+    OAuth2BasicAuth:
+      type: http
+      scheme: basic
