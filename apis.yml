@@ -1,8 +1,26 @@
 aid: ostrom
 name: Ostrom
-description: Ostrom is a company surfaced as a portfolio company of union-square-ventures and added to
-  the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  Ostrom is a fully digital green-energy provider based in Berlin, Germany, offering
+  variable, fixed, and dynamic electricity tariffs managed entirely through a mobile
+  app, with smart-meter integration, device control, EV-charging optimization, and a
+  NeoGrid virtual power plant. Its developer API lets Ostrom customers and partners
+  integrate with the smart energy-management platform: OAuth2-secured REST endpoints
+  for user data, orders, contracts, smart-meter energy consumption, day-ahead EEX
+  spot prices, product pricing, and partner webhooks.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://cdn.prod.website-files.com/60ec127477c1e52acb31ae8c/60ffd44f1211be9d43aa3bd7_favicon-256x256.png
 url: https://raw.githubusercontent.com/api-evangelist/ostrom/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -12,15 +30,149 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-20'
+x-enrichment:
+  date: '2026-07-20'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1
 tags:
 - Company
-apis: []
+- Energy
+- Electricity
+- Green Energy
+- Smart Meter
+- Dynamic Pricing
+- Germany
+- Sustainability
+- Webhooks
+- API
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: ostrom:ostrom-auth-api
+  name: Ostrom Auth API
+  description: Describe how to authenticate in the api
+  humanURL: https://docs.ostrom-api.io/reference/introduction
+  baseURL: https://production.ostrom-api.io
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/ostrom-auth-api-openapi.yml
+- aid: ostrom:ostrom-contracts-api
+  name: Ostrom Contracts API
+  description: Describe how to fetch information related with contracts
+  humanURL: https://docs.ostrom-api.io/reference/introduction
+  baseURL: https://production.ostrom-api.io
+  tags:
+  - Contracts
+  properties:
+  - type: OpenAPI
+    url: openapi/ostrom-contracts-api-openapi.yml
+- aid: ostrom:ostrom-orders-api
+  name: Ostrom Orders API
+  description: Describe how to fetch information related with orders
+  humanURL: https://docs.ostrom-api.io/reference/introduction
+  baseURL: https://production.ostrom-api.io
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/ostrom-orders-api-openapi.yml
+- aid: ostrom:ostrom-prices-api
+  name: Ostrom Prices API
+  description: Describe how to fetch information related with prices
+  humanURL: https://docs.ostrom-api.io/reference/introduction
+  baseURL: https://production.ostrom-api.io
+  tags:
+  - Prices
+  properties:
+  - type: OpenAPI
+    url: openapi/ostrom-prices-api-openapi.yml
+- aid: ostrom:ostrom-products-api
+  name: Ostrom Products API
+  description: Describe how to fetch information related with products
+  humanURL: https://docs.ostrom-api.io/reference/introduction
+  baseURL: https://production.ostrom-api.io
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/ostrom-products-api-openapi.yml
+- aid: ostrom:ostrom-users-api
+  name: Ostrom Users API
+  description: Describe how to fetch information related with users
+  humanURL: https://docs.ostrom-api.io/reference/introduction
+  baseURL: https://production.ostrom-api.io
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/ostrom-users-api-openapi.yml
+- aid: ostrom:ostrom-webhooks-api
+  name: Ostrom Webhooks API
+  description: Describe how to create webhooks and receive notifications from our system.
+  humanURL: https://docs.ostrom-api.io/reference/introduction
+  baseURL: https://production.ostrom-api.io
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/ostrom-webhooks-api-openapi.yml
 common:
+- type: DeveloperPortal
+  url: https://developer.ostrom-api.io/
+- type: Documentation
+  url: https://docs.ostrom-api.io/
+- type: APIReference
+  url: https://docs.ostrom-api.io/reference/introduction
+- type: GettingStarted
+  url: https://docs.ostrom-api.io/docs/getting-started
+- type: Support
+  url: https://support.ostrom.de/
+- type: Blog
+  url: https://ostrom.de/en/blog
+- type: Pricing
+  url: https://ostrom.de/en/strompreis
+- type: SignUp
+  url: https://ostrom.de/en/calculate-tariff
+- type: Login
+  url: https://join.ostrom.de
+- type: TermsOfService
+  url: https://ostrom.de/en/terms-and-conditions-overview
+- type: PrivacyPolicy
+  url: https://ostrom.de/en/privacy-policy
+- type: Authentication
+  url: authentication/ostrom-authentication.yml
+- type: Sandbox
+  url: sandbox/ostrom-sandbox.yml
+- type: Conventions
+  url: conventions/ostrom-conventions.yml
+- type: ChangeLog
+  url: changelog/ostrom-changelog.yml
+- type: Lifecycle
+  url: lifecycle/ostrom-lifecycle.yml
+- type: ErrorCatalog
+  url: errors/ostrom-problem-types.yml
+- type: DataModel
+  url: data-model/ostrom-data-model.yml
+- type: Conformance
+  url: conformance/ostrom-conformance.yml
+- type: Webhooks
+  url: asyncapi/ostrom-webhooks.yml
+- type: MCPServer
+  url: mcp/ostrom-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/ostrom-llms.txt
+- type: DomainSecurity
+  url: security/ostrom-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/ostrom-agentic-access.yml
 - type: Website
   url: https://ostrom.de

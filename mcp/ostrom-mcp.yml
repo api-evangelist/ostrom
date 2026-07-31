@@ -1,0 +1,66 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/ostrom-openapi-original.json
+summary: >-
+  No official hosted/remote MCP server was found for Ostrom (no entry in the MCP
+  registry, npm @modelcontextprotocol, or the developer docs). This is a candidate
+  tool list derived one-to-one from the OpenAPI operations to seed an MCP server.
+server:
+  name: ostrom
+  transport: http
+tools:
+- name: create_oauth2_token
+  description: Obtain an OAuth2 access token (client credentials).
+  source_operation: openapi/ostrom-openapi-original.json#createOAuth2Token
+- name: get_me
+  description: Retrieve the authenticated user's information.
+  source_operation: openapi/ostrom-openapi-original.json#getMe
+- name: link_user
+  description: Link a user to a partner client application.
+  source_operation: openapi/ostrom-openapi-original.json#linkUser
+- name: disconnect_user
+  description: Disconnect a user from a partner client application.
+  source_operation: openapi/ostrom-openapi-original.json#disconnectUser
+- name: get_orders_by_external_user_id
+  description: Retrieve a user's orders by external user id.
+  source_operation: openapi/ostrom-openapi-original.json#getOrdersByExternalUserId
+- name: get_order_by_external_user_id
+  description: Retrieve a single user order by external user id.
+  source_operation: openapi/ostrom-openapi-original.json#getOrderByExternalUserId
+- name: get_contracts
+  description: Retrieve the authenticated user's contracts.
+  source_operation: openapi/ostrom-openapi-original.json#getContracts
+- name: get_contract_energy_consumption
+  description: Retrieve smart-meter consumption for a contract.
+  source_operation: openapi/ostrom-openapi-original.json#getContractEnergyConsumption
+- name: get_contracts_by_external_user_id
+  description: Retrieve a user's contracts by external user id.
+  source_operation: openapi/ostrom-openapi-original.json#getContractsByExternalUserId
+- name: get_contract_by_external_user_id
+  description: Retrieve a single user contract by external user id.
+  source_operation: openapi/ostrom-openapi-original.json#getContractByExternalUserId
+- name: get_contract_energy_consumption_by_external_user_id
+  description: Retrieve smart-meter consumption for a contract by external user id.
+  source_operation: openapi/ostrom-openapi-original.json#getContractEnergyConsumptionByExternalUserId
+- name: get_spot_prices
+  description: Retrieve day-ahead spot prices for a zip code and time window.
+  source_operation: openapi/ostrom-openapi-original.json#getSpotPrices
+- name: get_product_prices
+  description: Retrieve Ostrom product prices for a zip and household profile.
+  source_operation: openapi/ostrom-openapi-original.json#getProductPrices
+- name: create_webhook
+  description: Register a partner webhook subscription.
+  source_operation: openapi/ostrom-openapi-original.json#createWebhook
+- name: get_webhooks
+  description: List registered webhooks.
+  source_operation: openapi/ostrom-openapi-original.json#getWebhooks
+- name: get_webhook
+  description: Retrieve a single webhook.
+  source_operation: openapi/ostrom-openapi-original.json#getWebhook
+- name: delete_webhook
+  description: Delete a webhook.
+  source_operation: openapi/ostrom-openapi-original.json#deleteWebhook
+- name: test_webhook
+  description: Trigger a test event to a registered webhook.
+  source_operation: openapi/ostrom-openapi-original.json#testWebhook

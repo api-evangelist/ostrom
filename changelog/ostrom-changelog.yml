@@ -1,0 +1,28 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.ostrom-api.io/changelog
+summary: >-
+  Ostrom publishes a dated changelog on its ReadMe-hosted developer docs. The API
+  is date-versioned (version 2023-11-01). Entries below are the recent window.
+scheme: date-version
+current_version: '2023-11-01'
+entries:
+- date: '2024-06-03'
+  breaking: false
+  additions:
+  - Added GET /products to retrieve Ostrom product prices for PARTNER users
+    (query params zip, numberOfResidents, yearlyConsumption).
+  highlights: Product pricing endpoint for partners.
+- date: '2024-05-22'
+  breaking: false
+  additions:
+  - Added GET /users/{externalUserId}/contracts/{contractId}/energy-consumption
+    to retrieve smart-meter consumption by external user id for PARTNER users.
+  highlights: Per-external-user smart-meter consumption.
+- date: '2023-11-01'
+  breaking: false
+  additions:
+  - Initial public release of the energy-management external API.
+  - Authentication (POST /oauth2/token), user data (GET /me), contracts
+    (GET /contracts), energy consumption, and day-ahead spot prices (GET /spot-prices).
+  highlights: First public release.

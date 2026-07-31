@@ -1,0 +1,40 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.ostrom-api.io/docs/test-accounts
+docs:
+- https://docs.ostrom-api.io/reference/environments
+- https://docs.ostrom-api.io/docs/test-accounts
+- https://docs.ostrom-api.io/docs/account-linking
+summary: >-
+  Ostrom exposes a full sandbox environment separate from production. Sandbox uses
+  its own OAuth2 credentials and hosts, and returns test data. Published test
+  accounts let partners exercise the account-linking flow end to end.
+environments:
+- name: sandbox
+  api_base: https://sandbox.ostrom-api.io
+  auth_base: https://auth.sandbox.ostrom-api.io
+  token_url: https://auth.sandbox.ostrom-api.io/oauth2/token
+  data: test
+- name: production
+  api_base: https://production.ostrom-api.io
+  auth_base: https://auth.production.ostrom-api.io
+  token_url: https://auth.production.ostrom-api.io/oauth2/token
+  data: live
+# Published verbatim from the docs test-accounts page — sandbox only.
+test_accounts:
+- contract_type: DynamicTariff (Single Contract)
+  email: demo+dynamictariff01@ostrom.de
+  password: Test123
+- contract_type: DynamicTariff (Multiple Contracts)
+  email: demo+dynamictariff02@ostrom.de
+  password: Test123
+- contract_type: SimplyTariff - Request user to change tariff (Single Contract)
+  email: demo+tariffchange01@ostrom.de
+  password: Test123
+- contract_type: SimplyTariff - Request user to change tariff (Multiple Contracts)
+  email: demo+tariffchange02@ostrom.de
+  password: Test123
+notes: >-
+  Test accounts are used to drive the account-linking OAuth consent flow in the
+  sandbox. Spot-price and product-price endpoints work without user linkage. When
+  fetching spot prices without a zipCode, the tax/levy and fee fields return zero.

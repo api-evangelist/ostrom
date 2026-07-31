@@ -1,0 +1,45 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.ostrom-api.io/docs/webhooks-concept
+spec_type: Webhooks
+summary: >-
+  Ostrom delivers events to partners via HTTP webhooks. A PARTNER registers a
+  subscription (endpoint URL + shared secret) through the create-webhook API, then
+  receives POST callbacks. Each delivery carries an X-Ostrom-Signature header — the
+  HMAC-SHA1 hex digest (prefixed "sha1=") of the raw JSON body, keyed by the
+  partner secret — for payload-integrity verification. No published AsyncAPI
+  document exists; the specific event-type catalog is not enumerated in the docs.
+transport: http
+delivery: POST
+signature:
+  header: X-Ostrom-Signature
+  algorithm: HMAC-SHA1
+  format: 'sha1=<hex digest>'
+  key: partner secret supplied at webhook creation (pseudorandom, >= 128 bit)
+  verify: timing-safe comparison (crypto.timingSafeEqual)
+management_operations:
+- operationId: createWebhook
+  method: POST
+  path: /webhooks
+  role: PARTNER
+  body: { url: string, secret: string }
+- operationId: getWebhooks
+  method: GET
+  path: /webhooks
+  role: PARTNER
+- operationId: getWebhook
+  method: GET
+  path: /webhooks/{id}
+  role: PARTNER
+- operationId: deleteWebhook
+  method: DELETE
+  path: /webhooks/{id}
+  role: PARTNER
+- operationId: testWebhook
+  method: POST
+  path: /webhooks/{id}/test
+  role: PARTNER
+  notes: Triggers a test event to the registered endpoint.
+docs:
+- https://docs.ostrom-api.io/docs/webhooks-concept
+- https://docs.ostrom-api.io/reference/createwebhook

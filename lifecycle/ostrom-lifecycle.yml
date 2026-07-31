@@ -1,0 +1,23 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.ostrom-api.io/reference/environments
+summary: >-
+  Ostrom uses date-based API versioning (current 2023-11-01). Sandbox and
+  production are separated environments with independent credentials. No formal
+  deprecation policy or Sunset/Deprecation header support is documented, and no
+  public status page was found. Changes are communicated via the dated changelog.
+versioning:
+  scheme: date-version
+  current: '2023-11-01'
+  in: openapi-info-version
+  docs: https://docs.ostrom-api.io/reference/download-open-api-spec
+deprecation:
+  policy_url: null
+  sunset_header: false
+  documented: false
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+changelog: https://docs.ostrom-api.io/changelog
+deprecated_operations: []

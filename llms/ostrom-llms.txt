@@ -1,0 +1,42 @@
+# Ostrom API Documentation
+
+> Documentation for Ostrom API
+
+## Guides
+- [Getting Started](https://docs.ostrom-api.io/docs/getting-started.md)
+- [Account linking](https://docs.ostrom-api.io/docs/account-linking.md)
+- [External Sign-up](https://docs.ostrom-api.io/docs/external-sign-up.md)
+- [Fetching Prices](https://docs.ostrom-api.io/docs/fetching-prices.md)
+- [Test Accounts](https://docs.ostrom-api.io/docs/test-accounts.md)
+- [Fetching own data](https://docs.ostrom-api.io/docs/ostrom-customer-fetching-own-data.md)
+- [Order and Contract](https://docs.ostrom-api.io/docs/order-and-contract.md)
+- [Webhooks](https://docs.ostrom-api.io/docs/webhooks-concept.md)
+
+## API Reference
+- [API Access](https://docs.ostrom-api.io/reference/api-access.md)
+- [Environments](https://docs.ostrom-api.io/reference/environments.md)
+- [Authentication](https://docs.ostrom-api.io/reference/authentication.md)
+- [Download Open API Spec](https://docs.ostrom-api.io/reference/download-open-api-spec.md)
+- [Obtain OAuth2 Access Token](https://docs.ostrom-api.io/reference/createoauth2token.md): Allowed role: `USER` or `PARTNER`
+- [Retrieve user information](https://docs.ostrom-api.io/reference/getme.md): Allowed role: `USER`
+- [Link user to a partner client application](https://docs.ostrom-api.io/reference/linkuser.md): Allowed role: `PARTNER`
+- [Disconnect user from partner client application](https://docs.ostrom-api.io/reference/disconnectuser.md): Allowed role: `PARTNER`
+- [Retrieve user orders information by external user id](https://docs.ostrom-api.io/reference/getordersbyexternaluserid.md): Allowed role: `PARTNER`
+- [Retrieve user order information by external user id](https://docs.ostrom-api.io/reference/getorderbyexternaluserid.md): Allowed role: `PARTNER`
+- [Retrieve user contracts information](https://docs.ostrom-api.io/reference/getcontracts.md): Allowed role: `USER`
+- [Retrieve user contract smart meter consumption](https://docs.ostrom-api.io/reference/getcontractenergyconsumption.md): Allowed role: `USER`
+- [Retrieve user contracts information by external user id](https://docs.ostrom-api.io/reference/getcontractsbyexternaluserid.md): Allowed role: `PARTNER`
+- [Retrieve user contract information by external user id](https://docs.ostrom-api.io/reference/getcontractbyexternaluserid.md): Allowed role: `PARTNER`
+- [Retrieve user contract smart meter consumption by external user id](https://docs.ostrom-api.io/reference/getcontractenergyconsumptionbyexternaluserid.md): Allowed role: `PARTNER`
+- [Retrieve day-ahead spot price information](https://docs.ostrom-api.io/reference/getspotprices.md): Allowed role: `USER` or `PARTNER`
+- [Retrieve product prices](https://docs.ostrom-api.io/reference/getproductprices.md): Allowed role: `PARTNER`
+- [Create a new webhook](https://docs.ostrom-api.io/reference/createwebhook.md): Allowed role: `PARTNER`
+- [Retrieve all webhooks](https://docs.ostrom-api.io/reference/getwebhooks.md): Allowed role: `PARTNER`
+- [Retrieve a webhook](https://docs.ostrom-api.io/reference/getwebhook.md): Allowed role: `PARTNER`
+- [Delete a webhook](https://docs.ostrom-api.io/reference/deletewebhook.md): Allowed role: `PARTNER`
+- [Test a webhook](https://docs.ostrom-api.io/reference/testwebhook.md): Allowed role: `PARTNER`
+
+## Changelog
+- [2024-06-03](https://docs.ostrom-api.io/changelog/2024-06-03.md)
+- [2024-05-22](https://docs.ostrom-api.io/changelog/2024-05-22.md)
+- [2023-11-01](https://docs.ostrom-api.io/changelog/2023-11-01.md)

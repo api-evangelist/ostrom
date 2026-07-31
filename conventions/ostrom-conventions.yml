@@ -1,0 +1,51 @@
+generated: '2026-07-20'
+method: searched
+source: https://docs.ostrom-api.io/reference/introduction
+derived_from: openapi/ostrom-openapi-original.json
+summary: >-
+  Cross-cutting request/response semantics for the Ostrom API, derived from the
+  OpenAPI and the developer docs. RESTful JSON API over HTTPS, OAuth2 Bearer auth,
+  a flat {type, detail} error envelope, and X-RateLimit-* signaling. No idempotency
+  key, pagination cursor, field-expansion, or request-id tracing surface is
+  documented.
+authentication:
+  style: oauth2-bearer
+  grant: client_credentials
+  token_header: 'Authorization: Bearer <access_token>'
+  see: authentication/ostrom-authentication.yml
+idempotency:
+  supported: false
+  notes: No Idempotency-Key header or param is documented.
+pagination:
+  supported: false
+  notes: >-
+    List endpoints return a top-level "data" array with no cursor/offset params.
+    Time-series endpoints (spot-prices, energy-consumption) are bounded by
+    required startDate/endDate plus a resolution (HOUR/DAY/MONTH).
+time_filtering:
+  params: [startDate, endDate, resolution]
+  timezone: UTC (dates in ISO 8601, e.g. 2023-11-01T00:00:00.000Z)
+  resolutions: [HOUR, DAY, MONTH]
+response_envelope:
+  list_shape: '{ "data": [ ... ] }'
+error_envelope:
+  shape: '{ "type": <code>, "detail": <message> }'
+  media_type: application/json
+  see: errors/ostrom-problem-types.yml
+rate_limit_signaling:
+  limit: 50 requests per minute
+  headers:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  - X-RateLimit-Reset
+  on_exceed: 429 too_many_requests
+  see: https://docs.ostrom-api.io/reference/rate-limits
+versioning:
+  scheme: date-version
+  current: '2023-11-01'
+  see: lifecycle/ostrom-lifecycle.yml
+webhook_security:
+  signature_header: X-Ostrom-Signature
+  algorithm: HMAC-SHA1
+  key: partner-supplied secret (>= 128-bit) provided at webhook creation
+  see: asyncapi/ostrom-webhooks.yml

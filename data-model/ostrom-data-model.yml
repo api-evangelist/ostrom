@@ -1,0 +1,63 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/ostrom-openapi-original.json
+summary: >-
+  Entity-relationship graph derived from the Ostrom OpenAPI schemas and path
+  structure. A User (customer) has Orders and Contracts; a Contract carries
+  address and time-series smart-meter energy consumption. Prices (spot / product)
+  are reference data keyed by zip code and time window. Partners manage Webhooks.
+entities:
+- name: User
+  source_schema: GetMeResponse
+  identifier: externalUserId
+  description: An Ostrom customer, addressable by a partner-assigned externalUserId.
+- name: Order
+  source_schema: GetOrdersItemResponse
+  identifier: orderId
+  description: A signup/tariff order placed by a user; includes an address.
+- name: Contract
+  source_schema: GetContractsItemResponse
+  identifier: contractId
+  description: An active energy contract for a user; includes an address.
+- name: EnergyConsumption
+  source_schema: GetContractsEnergyConsumptionItemResponse
+  description: Time-series smart-meter consumption for a contract (HOUR/DAY/MONTH).
+- name: SpotPrice
+  source_schema: GetSpotPriceItemResponse
+  description: Day-ahead EEX spot price per zip code and time interval.
+- name: Product
+  source_schema: GetProductPriceItemResponse
+  description: Ostrom product/tariff pricing for a zip code and household profile.
+- name: Webhook
+  source_schema: GetWebhooksItemResponse
+  identifier: id
+  description: A partner-registered webhook subscription (url + secret).
+relationships:
+- from: User
+  to: Order
+  type: has_many
+  via: externalUserId
+- from: User
+  to: Contract
+  type: has_many
+  via: externalUserId
+- from: Contract
+  to: EnergyConsumption
+  type: has_many
+  via: contractId
+- from: Order
+  to: User
+  type: belongs_to
+  via: externalUserId
+- from: Contract
+  to: User
+  type: belongs_to
+  via: externalUserId
+- from: Webhook
+  to: Partner
+  type: belongs_to
+  via: client
+notes: >-
+  SpotPrice and Product are reference/reporting entities keyed by zip + time
+  window, not owned by a user. Ids observed: contractId (number), orderId,
+  webhook id; users are addressed by partner-scoped externalUserId.

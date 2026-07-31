@@ -1,0 +1,41 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/ostrom-openapi-original.json
+docs: https://docs.ostrom-api.io/reference/rate-limits
+format: custom-json
+# Ostrom errors are NOT RFC 9457 problem+json. They are a flat application/json
+# envelope: { "type": <machine code>, "detail": <human message> }.
+envelope:
+  media_type: application/json
+  fields:
+    type: Machine-readable error code (e.g. bad_request, too_many_requests).
+    detail: Human-readable message with more context.
+problems:
+- status: 400
+  type: bad_request
+  title: Bad request
+  detail_example: invalid fields array...
+  schema: BadRequestError400
+- status: 401
+  type: unauthorized
+  title: Unauthorized / invalid or missing access token
+  schema: UnauthorizedError401
+- status: 404
+  type: not_found
+  title: Resource not found
+  schema: BadRequestError404
+- status: 429
+  type: too_many_requests
+  title: Rate limit exceeded
+  detail_example: API request limit per minute has been reached. Please try again later.
+  schema: TooManyRequestError429
+  remediation: >-
+    Respect the 50 req/min limit; back off using X-RateLimit-Reset (seconds until
+    the window resets).
+oauth_token_errors:
+- status: 400
+  schema: OAuth2TokenError400
+  context: POST /oauth2/token
+- status: 401
+  schema: OAuth2TokenError401
+  context: POST /oauth2/token

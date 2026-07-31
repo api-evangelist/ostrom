@@ -1,0 +1,29 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Ostrom API
+  version: 1.0.0
+extends: openapi/ostrom-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-20'
+    x-apievangelist-provider: ostrom
+    x-apievangelist-environments:
+      sandbox: https://sandbox.ostrom-api.io
+      production: https://production.ostrom-api.io
+- target: $.info
+  update:
+    x-apievangelist-rate-limit:
+      requests_per_minute: 50
+      headers: [X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset]
+- target: $.info
+  update:
+    x-apievangelist-webhooks:
+      signature_header: X-Ostrom-Signature
+      algorithm: HMAC-SHA1
+      catalog: asyncapi/ostrom-webhooks.yml
+- target: $.info
+  update:
+    x-apievangelist-error-envelope:
+      shape: '{ type, detail }'
+      catalog: errors/ostrom-problem-types.yml

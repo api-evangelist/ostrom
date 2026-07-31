@@ -1,0 +1,40 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/ostrom-openapi-original.json
+docs: https://docs.ostrom-api.io/reference/authentication
+notes: >-
+  OAuth2 client-credentials grant. Client registers in the Developer Portal
+  (https://developer.ostrom-api.io/) to obtain a client_id/client_secret per
+  environment. Token request uses HTTP Basic auth (base64 client_id:client_secret)
+  with grant_type=client_credentials against the environment token endpoint
+  (auth.sandbox / auth.production). The returned access_token (Bearer, expires_in
+  ~3599s) authorizes calls. Roles USER (own data) and PARTNER (multi-user with consent).
+token_endpoints:
+  sandbox: https://auth.sandbox.ostrom-api.io/oauth2/token
+  production: https://auth.production.ostrom-api.io/oauth2/token
+roles:
+- USER
+- PARTNER
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+schemes:
+- name: ClientAccessToken
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://auth.sandbox.ostrom-api.io/oauth2/token
+    scopes: 0
+  description: A `ClientAccessToken` is obtained via the [OAuth 2.0 Client Credentials grant](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/)
+    and carries authorization to access all functionalities and data in your Ostrom account.
+    Full details at [The ClientAccessToken](/api/reference#getting-an-access-token)
+  sources:
+  - openapi/ostrom-openapi-original.json
+- name: OAuth2BasicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/ostrom-openapi-original.json

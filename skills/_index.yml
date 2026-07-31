@@ -1,0 +1,16 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/ostrom-openapi-original.json
+skills:
+- file: ostrom-fetch-spot-prices.md
+  name: Fetch day-ahead electricity spot prices
+  api: openapi/ostrom-openapi-original.json
+  operations: [createOAuth2Token, getSpotPrices]
+- file: ostrom-partner-user-data.md
+  name: Link a partner user and read their contracts
+  api: openapi/ostrom-openapi-original.json
+  operations: [createOAuth2Token, linkUser, getContractsByExternalUserId, getContractEnergyConsumptionByExternalUserId, getOrdersByExternalUserId]
+- file: ostrom-webhooks.md
+  name: Register and verify Ostrom webhooks
+  api: openapi/ostrom-openapi-original.json
+  operations: [createOAuth2Token, createWebhook, testWebhook, getWebhooks, deleteWebhook]

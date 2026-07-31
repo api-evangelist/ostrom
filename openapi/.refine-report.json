@@ -1,0 +1,26 @@
+{
+  "provider": "ostrom",
+  "sources": [
+    "ostrom-auth-api-openapi.yml",
+    "ostrom-contracts-api-openapi.yml",
+    "ostrom-orders-api-openapi.yml",
+    "ostrom-prices-api-openapi.yml",
+    "ostrom-products-api-openapi.yml",
+    "ostrom-users-api-openapi.yml",
+    "ostrom-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "ostrom-auth-api-openapi.yml",
+    "ostrom-contracts-api-openapi.yml",
+    "ostrom-orders-api-openapi.yml",
+    "ostrom-prices-api-openapi.yml",
+    "ostrom-products-api-openapi.yml",
+    "ostrom-users-api-openapi.yml",
+    "ostrom-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
