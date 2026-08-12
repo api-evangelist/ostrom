@@ -124,6 +124,8 @@ apis:
   - type: OpenAPI
     url: openapi/ostrom-webhooks-api-openapi.yml
 common:
+- type: Overlay
+  url: overlays/ostrom-openapi-overlay.yaml
 - type: DeveloperPortal
   url: https://developer.ostrom-api.io/
 - type: Documentation
