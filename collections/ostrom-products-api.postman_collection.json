@@ -1,0 +1,378 @@
+{
+  "item": [
+    {
+      "id": "87bf360c-5e37-4f43-bf7a-f4e17640a882",
+      "name": "Products",
+      "description": {
+        "content": "Describe how to fetch information related with products",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a817f7ed-3722-458d-a4a2-86117de02b94",
+          "name": "Retrieve product prices",
+          "request": {
+            "name": "Retrieve product prices",
+            "description": {
+              "content": "Allowed role: `PARTNER`",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "zip",
+                  "value": "<string>",
+                  "description": "(Required) The postal code where the tariff will be calculated"
+                },
+                {
+                  "disabled": false,
+                  "key": "numberOfResidents",
+                  "value": "<number>",
+                  "description": "The number of people in the household, if not provided the default value will be 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "yearlyConsumption",
+                  "value": "<number>",
+                  "description": "The amount of yearly consumption of the household, if not provided the default value will be 1400 kWh"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://auth.sandbox.ostrom-api.io/oauth2/token"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "client_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "277c961d-b44b-4de4-ad4c-81969b7725a6",
+              "name": "Successful product prices data fetch",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "zip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "numberOfResidents",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "yearlyConsumption",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"code\": \"SIMPLY_DYNAMIC\",\n      \"netKwhPrice\": 92.6,\n      \"grossKwhPrice\": 110.2,\n      \"netKwhTaxAndLevies\": 16.2,\n      \"grossKwhTaxAndLevies\": 19.28,\n      \"netMonthlyOstromBaseFee\": 5.04,\n      \"grossMonthlyOstromBaseFee\": 6,\n      \"netMonthlyGridFees\": 3.84,\n      \"grossMonthlyGridFees\": 4.57,\n      \"netKwhUnitPrice\": 25.76,\n      \"grossKwhUnitPrice\": 30.66,\n      \"monthlyDeposit\": 60,\n      \"yearlyComsumption\": 2000\n    },\n    {\n      \"code\": \"SIMPLY_DYNAMIC\",\n      \"netKwhPrice\": 92.6,\n      \"grossKwhPrice\": 110.2,\n      \"netKwhTaxAndLevies\": 16.2,\n      \"grossKwhTaxAndLevies\": 19.28,\n      \"netMonthlyOstromBaseFee\": 5.04,\n      \"grossMonthlyOstromBaseFee\": 6,\n      \"netMonthlyGridFees\": 3.84,\n      \"grossMonthlyGridFees\": 4.57,\n      \"netKwhUnitPrice\": 25.76,\n      \"grossKwhUnitPrice\": 30.66,\n      \"monthlyDeposit\": 60,\n      \"yearlyComsumption\": 2000\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e9af906-d180-417e-9471-56bbd3c0b3c5",
+              "name": "The request is invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "zip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "numberOfResidents",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "yearlyConsumption",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"bad_request\",\n  \"detail\": \"invalid fields array...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3982275b-a2c6-45e3-8bd2-c892e28d2d8f",
+              "name": "Unauthorized access",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "zip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "numberOfResidents",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "yearlyConsumption",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"unauthorized\",\n  \"detail\": \"Unauthorized API access.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0615e42c-0c6c-4a52-872b-ede66264e6a1",
+              "name": "Entity with the provided id was not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "zip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "numberOfResidents",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "yearlyConsumption",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"not_found\",\n  \"detail\": \"information about not found object...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "810c6582-926f-4038-af38-7094c39b360d",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "zip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "numberOfResidents",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "yearlyConsumption",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"too_many_requests\",\n  \"detail\": \"API request limit per minute has been reached. Please try again later.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://sandbox.ostrom-api.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "207dfc69-9520-4943-907d-15862344ab73",
+    "name": "Ostrom Auth Products API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.\n",
+      "type": "text/plain"
+    }
+  }
+}

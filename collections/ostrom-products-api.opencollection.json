@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ostrom Auth Products API",
+    "version": "2023-11-01"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve product prices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://sandbox.ostrom-api.io/products",
+            "params": [
+              {
+                "name": "zip",
+                "value": "",
+                "type": "query",
+                "description": "The postal code where the tariff will be calculated"
+              },
+              {
+                "name": "numberOfResidents",
+                "value": "",
+                "type": "query",
+                "description": "The number of people in the household, if not provided the default value will be 1"
+              },
+              {
+                "name": "yearlyConsumption",
+                "value": "",
+                "type": "query",
+                "description": "The amount of yearly consumption of the household, if not provided the default value will be 1400 kWh"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://auth.sandbox.ostrom-api.io/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Allowed role: `PARTNER`"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

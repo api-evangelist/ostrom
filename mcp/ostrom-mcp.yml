@@ -2,10 +2,9 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/ostrom-openapi-original.json
-summary: >-
-  No official hosted/remote MCP server was found for Ostrom (no entry in the MCP
-  registry, npm @modelcontextprotocol, or the developer docs). This is a candidate
-  tool list derived one-to-one from the OpenAPI operations to seed an MCP server.
+summary: No official hosted/remote MCP server was found for Ostrom (no entry in the MCP registry, npm
+  @modelcontextprotocol, or the developer docs). This is a candidate tool list derived one-to-one from
+  the OpenAPI operations to seed an MCP server.
 server:
   name: ostrom
   transport: http
@@ -64,3 +63,9 @@ tools:
 - name: test_webhook
   description: Trigger a test event to a registered webhook.
   source_operation: openapi/ostrom-openapi-original.json#testWebhook
+deployment:
+  mode: none
+  verified: derived
+  tools: 18
+  checked: '2026-08-12'
+  source: catalog MCP census
