@@ -45,6 +45,16 @@ tags:
 - Dynamic Pricing
 - Germany
 - Sustainability
+- Webhook
+tags_raw:
+- Company
+- Energy
+- Electricity
+- Green Energy
+- Smart Meter
+- Dynamic Pricing
+- Germany
+- Sustainability
 - Webhooks
 - API
 maintainers:
@@ -59,6 +69,8 @@ apis:
   humanURL: https://docs.ostrom-api.io/reference/introduction
   baseURL: https://production.ostrom-api.io
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -79,6 +91,8 @@ apis:
   humanURL: https://docs.ostrom-api.io/reference/introduction
   baseURL: https://production.ostrom-api.io
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -99,6 +113,8 @@ apis:
   humanURL: https://docs.ostrom-api.io/reference/introduction
   baseURL: https://production.ostrom-api.io
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -109,6 +125,8 @@ apis:
   humanURL: https://docs.ostrom-api.io/reference/introduction
   baseURL: https://production.ostrom-api.io
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -119,6 +137,8 @@ apis:
   humanURL: https://docs.ostrom-api.io/reference/introduction
   baseURL: https://production.ostrom-api.io
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
