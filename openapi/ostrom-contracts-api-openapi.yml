@@ -1,10 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Ostrom Auth Contracts API
+  title: Ostrom Contracts API
   version: '2023-11-01'
-  description: 'The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.
-
-    '
+  description: The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.
   license:
     name: Ostrom Commercial License
     url: https://ostrom.de
@@ -311,6 +309,34 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestError429'
 components:
   schemas:
+    UnauthorizedError401:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: unauthorized
+        detail: Unauthorized API access.
+    GetContractsAddressResponse:
+      type: object
+      description: The address of the contract
+      properties:
+        zip:
+          type: string
+          description: The zip code of the address
+        city:
+          type: string
+          description: The city of the address
+        street:
+          type: string
+          description: The street of the address
+        houseNumber:
+          type: string
+          description: The house number of the address
     GetContractsItemResponse:
       type: object
       properties:
@@ -354,53 +380,6 @@ components:
           city: Hamburg
           street: Mozartstr.
           houseNumber: '35'
-    BadRequestError400:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: bad_request
-        detail: invalid fields array...
-    UnauthorizedError401:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: unauthorized
-        detail: Unauthorized API access.
-    TooManyRequestError429:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: too_many_requests
-        detail: API request limit per minute has been reached. Please try again later.
-    GetContractsEnergyConsumptionItemResponse:
-      type: object
-      properties:
-        date:
-          type: string
-          description: The date of the energy consumption data (start from)
-          example: '2023-10-22T01:00:00.000Z'
-        kWh:
-          type: number
-          description: The energy consumption in kWh
-          example: 0.48
     BadRequestError404:
       type: object
       properties:
@@ -413,14 +392,17 @@ components:
       example:
         type: not_found
         detail: information about not found object...
-    GetContractsResponse:
+    GetContractsEnergyConsumptionItemResponse:
       type: object
       properties:
-        data:
-          type: array
-          description: Contact data
-          items:
-            $ref: '#/components/schemas/GetContractsItemResponse'
+        date:
+          type: string
+          description: The date of the energy consumption data (start from)
+          example: '2023-10-22T01:00:00.000Z'
+        kWh:
+          type: number
+          description: The energy consumption in kWh
+          example: 0.48
     GetContractsEnergyConsumptionResponse:
       type: object
       properties:
@@ -429,22 +411,38 @@ components:
           description: The energy consumption data
           items:
             $ref: '#/components/schemas/GetContractsEnergyConsumptionItemResponse'
-    GetContractsAddressResponse:
+    BadRequestError400:
       type: object
-      description: The address of the contract
       properties:
-        zip:
+        type:
           type: string
-          description: The zip code of the address
-        city:
+          description: The type of the error
+        detail:
           type: string
-          description: The city of the address
-        street:
+          description: A human-readable message providing more details about the error
+      example:
+        type: bad_request
+        detail: invalid fields array...
+    GetContractsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: Contact data
+          items:
+            $ref: '#/components/schemas/GetContractsItemResponse'
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
           type: string
-          description: The street of the address
-        houseNumber:
+          description: The type of the error
+        detail:
           type: string
-          description: The house number of the address
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
   securitySchemes:
     ClientAccessToken:
       type: oauth2

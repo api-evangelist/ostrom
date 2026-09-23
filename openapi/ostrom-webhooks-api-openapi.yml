@@ -1,10 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Ostrom Auth Webhooks API
+  title: Ostrom Webhooks API
   version: '2023-11-01'
-  description: 'The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.
-
-    '
+  description: The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.
   license:
     name: Ostrom Commercial License
     url: https://ostrom.de
@@ -251,62 +249,6 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestError429'
 components:
   schemas:
-    DeleteWebhookResponse:
-      type: object
-      properties:
-        id:
-          type: number
-          description: The id of the webhook
-        clientApplicationId:
-          type: string
-          description: The id of the partner's client application that owns the webhook
-        url:
-          type: string
-          description: The url where the webhook events will be sent
-      example:
-        id: '12345'
-        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
-        url: https://partner-example.com/webhook
-    GetWebhooksResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          description: webhook data
-          items:
-            $ref: '#/components/schemas/GetWebhooksItemResponse'
-    GetWebhooksItemResponse:
-      type: object
-      properties:
-        id:
-          type: number
-          description: The id of the webhook
-        clientApplicationId:
-          type: string
-          description: The id of the partner's client application that owns the webhook
-        url:
-          type: string
-          description: The url where the webhook events will be sent
-      example:
-        id: '12345'
-        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
-        url: https://partner-example.com/webhook
-    CreateWebhookResponse:
-      type: object
-      properties:
-        id:
-          type: number
-          description: The id of the webhook
-        clientApplicationId:
-          type: string
-          description: The id of the partner's client application that owns the webhook
-        url:
-          type: string
-          description: The url where the webhook events will be sent
-      example:
-        id: '12345'
-        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
-        url: https://partner-example.com/webhook
     GetWebhookResponse:
       type: object
       properties:
@@ -323,54 +265,38 @@ components:
         id: '12345'
         clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
         url: https://partner-example.com/webhook
-    UnauthorizedError401:
+    DeleteWebhookResponse:
       type: object
       properties:
-        type:
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
           type: string
-          description: The type of the error
-        detail:
+          description: The id of the partner's client application that owns the webhook
+        url:
           type: string
-          description: A human-readable message providing more details about the error
+          description: The url where the webhook events will be sent
       example:
-        type: unauthorized
-        detail: Unauthorized API access.
-    BadRequestError400:
+        id: '12345'
+        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
+        url: https://partner-example.com/webhook
+    GetWebhooksItemResponse:
       type: object
       properties:
-        type:
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
           type: string
-          description: The type of the error
-        detail:
+          description: The id of the partner's client application that owns the webhook
+        url:
           type: string
-          description: A human-readable message providing more details about the error
+          description: The url where the webhook events will be sent
       example:
-        type: bad_request
-        detail: invalid fields array...
-    TooManyRequestError429:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: too_many_requests
-        detail: API request limit per minute has been reached. Please try again later.
-    BadRequestError404:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: not_found
-        detail: information about not found object...
+        id: '12345'
+        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
+        url: https://partner-example.com/webhook
     TestWebhookResponse:
       type: object
       properties:
@@ -387,6 +313,78 @@ components:
         id: '12345'
         clientApplicationId: 19b79v2f5bd594405342deoebc38df1
         url: https://partner-example.com/webhook
+    UnauthorizedError401:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: unauthorized
+        detail: Unauthorized API access.
+    GetWebhooksResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: webhook data
+          items:
+            $ref: '#/components/schemas/GetWebhooksItemResponse'
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
+    BadRequestError400:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: bad_request
+        detail: invalid fields array...
+    CreateWebhookResponse:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
+          type: string
+          description: The id of the partner's client application that owns the webhook
+        url:
+          type: string
+          description: The url where the webhook events will be sent
+      example:
+        id: '12345'
+        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
+        url: https://partner-example.com/webhook
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
   securitySchemes:
     ClientAccessToken:
       type: oauth2

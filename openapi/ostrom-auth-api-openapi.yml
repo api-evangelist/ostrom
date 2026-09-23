@@ -1,10 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Ostrom Auth API
   version: '2023-11-01'
-  description: 'The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.
-
-    '
+  description: The Ostrom API is designed to allow our customer and partners to develop apps that integrates with our smart energy management platform. The API has a RESTful architecture and utilizes OAuth2 authorization.
   license:
     name: Ostrom Commercial License
     url: https://ostrom.de
@@ -73,7 +71,7 @@ paths:
       - OAuth2BasicAuth: []
 components:
   schemas:
-    OAuth2TokenError400:
+    OAuth2TokenError401:
       type: object
       properties:
         error:
@@ -83,8 +81,8 @@ components:
           type: string
           description: A human-readable message providing more details about the error
       example:
-        error: invalid_request
-        error_description: The request is missing a required parameter, includes an invalid parameter value, or is otherwise malformed.
+        error: invalid_client
+        error_description: Client authentication failed (e.g., unknown client or unsupported authentication method).
     OAuth2TokenResponse:
       type: object
       properties:
@@ -113,7 +111,7 @@ components:
       example:
         type: too_many_requests
         detail: API request limit per minute has been reached. Please try again later.
-    OAuth2TokenError401:
+    OAuth2TokenError400:
       type: object
       properties:
         error:
@@ -123,8 +121,8 @@ components:
           type: string
           description: A human-readable message providing more details about the error
       example:
-        error: invalid_client
-        error_description: Client authentication failed (e.g., unknown client or unsupported authentication method).
+        error: invalid_request
+        error_description: The request is missing a required parameter, includes an invalid parameter value, or is otherwise malformed.
   securitySchemes:
     ClientAccessToken:
       type: oauth2

@@ -1,13 +1,7 @@
 {
   "provider": "ostrom",
   "sources": [
-    "ostrom-auth-api-openapi.yml",
-    "ostrom-contracts-api-openapi.yml",
-    "ostrom-orders-api-openapi.yml",
-    "ostrom-prices-api-openapi.yml",
-    "ostrom-products-api-openapi.yml",
-    "ostrom-users-api-openapi.yml",
-    "ostrom-webhooks-api-openapi.yml"
+    "_original/ostrom-openapi-original.json"
   ],
   "outputs": [
     "ostrom-auth-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "ostrom-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "ostrom-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ostrom-contracts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ostrom-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ostrom-prices-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ostrom-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ostrom-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ostrom-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
