@@ -249,38 +249,6 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestError429'
 components:
   schemas:
-    GetWebhookResponse:
-      type: object
-      properties:
-        id:
-          type: number
-          description: The id of the webhook
-        clientApplicationId:
-          type: string
-          description: The id of the partner's client application that owns the webhook
-        url:
-          type: string
-          description: The url where the webhook events will be sent
-      example:
-        id: '12345'
-        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
-        url: https://partner-example.com/webhook
-    DeleteWebhookResponse:
-      type: object
-      properties:
-        id:
-          type: number
-          description: The id of the webhook
-        clientApplicationId:
-          type: string
-          description: The id of the partner's client application that owns the webhook
-        url:
-          type: string
-          description: The url where the webhook events will be sent
-      example:
-        id: '12345'
-        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
-        url: https://partner-example.com/webhook
     GetWebhooksItemResponse:
       type: object
       properties:
@@ -325,14 +293,22 @@ components:
       example:
         type: unauthorized
         detail: Unauthorized API access.
-    GetWebhooksResponse:
+    DeleteWebhookResponse:
       type: object
       properties:
-        data:
-          type: array
-          description: webhook data
-          items:
-            $ref: '#/components/schemas/GetWebhooksItemResponse'
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
+          type: string
+          description: The id of the partner's client application that owns the webhook
+        url:
+          type: string
+          description: The url where the webhook events will be sent
+      example:
+        id: '12345'
+        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
+        url: https://partner-example.com/webhook
     BadRequestError404:
       type: object
       properties:
@@ -345,18 +321,22 @@ components:
       example:
         type: not_found
         detail: information about not found object...
-    BadRequestError400:
+    GetWebhookResponse:
       type: object
       properties:
-        type:
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
           type: string
-          description: The type of the error
-        detail:
+          description: The id of the partner's client application that owns the webhook
+        url:
           type: string
-          description: A human-readable message providing more details about the error
+          description: The url where the webhook events will be sent
       example:
-        type: bad_request
-        detail: invalid fields array...
+        id: '12345'
+        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
+        url: https://partner-example.com/webhook
     CreateWebhookResponse:
       type: object
       properties:
@@ -373,6 +353,18 @@ components:
         id: '12345'
         clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
         url: https://partner-example.com/webhook
+    BadRequestError400:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: bad_request
+        detail: invalid fields array...
     TooManyRequestError429:
       type: object
       properties:
@@ -385,6 +377,14 @@ components:
       example:
         type: too_many_requests
         detail: API request limit per minute has been reached. Please try again later.
+    GetWebhooksResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: webhook data
+          items:
+            $ref: '#/components/schemas/GetWebhooksItemResponse'
   securitySchemes:
     ClientAccessToken:
       type: oauth2

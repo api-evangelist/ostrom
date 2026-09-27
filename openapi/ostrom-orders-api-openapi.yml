@@ -137,6 +137,30 @@ components:
         houseNumber:
           type: string
           description: The house number of the address
+    UnauthorizedError401:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: unauthorized
+        detail: Unauthorized API access.
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
     GetOrdersItemResponse:
       type: object
       properties:
@@ -172,30 +196,14 @@ components:
           city: Hamburg
           street: Mozartstr.
           houseNumber: '35'
-    UnauthorizedError401:
+    GetOrdersResponse:
       type: object
       properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: unauthorized
-        detail: Unauthorized API access.
-    BadRequestError404:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: not_found
-        detail: information about not found object...
+        data:
+          type: array
+          description: Order data
+          items:
+            $ref: '#/components/schemas/GetOrdersItemResponse'
     BadRequestError400:
       type: object
       properties:
@@ -208,14 +216,6 @@ components:
       example:
         type: bad_request
         detail: invalid fields array...
-    GetOrdersResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          description: Order data
-          items:
-            $ref: '#/components/schemas/GetOrdersItemResponse'
     TooManyRequestError429:
       type: object
       properties:

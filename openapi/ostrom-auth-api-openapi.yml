@@ -71,18 +71,18 @@ paths:
       - OAuth2BasicAuth: []
 components:
   schemas:
-    OAuth2TokenError401:
+    TooManyRequestError429:
       type: object
       properties:
-        error:
+        type:
           type: string
           description: The type of the error
-        error_description:
+        detail:
           type: string
           description: A human-readable message providing more details about the error
       example:
-        error: invalid_client
-        error_description: Client authentication failed (e.g., unknown client or unsupported authentication method).
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
     OAuth2TokenResponse:
       type: object
       properties:
@@ -99,18 +99,6 @@ components:
         access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6I...
         expires_in: 3600
         token_type: Bearer
-    TooManyRequestError429:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: too_many_requests
-        detail: API request limit per minute has been reached. Please try again later.
     OAuth2TokenError400:
       type: object
       properties:
@@ -123,6 +111,18 @@ components:
       example:
         error: invalid_request
         error_description: The request is missing a required parameter, includes an invalid parameter value, or is otherwise malformed.
+    OAuth2TokenError401:
+      type: object
+      properties:
+        error:
+          type: string
+          description: The type of the error
+        error_description:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        error: invalid_client
+        error_description: Client authentication failed (e.g., unknown client or unsupported authentication method).
   securitySchemes:
     ClientAccessToken:
       type: oauth2
