@@ -89,18 +89,6 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestError429'
 components:
   schemas:
-    UnauthorizedError401:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: unauthorized
-        detail: Unauthorized API access.
     BadRequestError404:
       type: object
       properties:
@@ -113,6 +101,38 @@ components:
       example:
         type: not_found
         detail: information about not found object...
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
+    GetSpotPriceResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: The spot price data
+          items:
+            $ref: '#/components/schemas/GetSpotPriceItemResponse'
+    BadRequestError400:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: bad_request
+        detail: invalid fields array...
     GetSpotPriceItemResponse:
       type: object
       properties:
@@ -156,7 +176,7 @@ components:
           type: number
           description: The monthly grid fees with VAT in EUR
           example: 4.57
-    BadRequestError400:
+    UnauthorizedError401:
       type: object
       properties:
         type:
@@ -166,28 +186,8 @@ components:
           type: string
           description: A human-readable message providing more details about the error
       example:
-        type: bad_request
-        detail: invalid fields array...
-    TooManyRequestError429:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: too_many_requests
-        detail: API request limit per minute has been reached. Please try again later.
-    GetSpotPriceResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          description: The spot price data
-          items:
-            $ref: '#/components/schemas/GetSpotPriceItemResponse'
+        type: unauthorized
+        detail: Unauthorized API access.
   securitySchemes:
     ClientAccessToken:
       type: oauth2
