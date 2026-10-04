@@ -1,0 +1,35 @@
+slug: ostrom
+provider: Ostrom
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Webhooks
+  spec_file: ostrom-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.9
+  evidence: POST /webhooks  createWebhook  Create a new webhook; POST /webhooks/{id}/test  testWebhook  Test
+    a webhook
+  reason: Full CRUD plus test on outbound webhook subscriptions exposed to partner developers — precisely
+    the lifecycle of outbound webhook subscriptions and delivery reliability described by BC-4270.80 within
+    the developer/API ecosystem.
+- tag: Products
+  spec_file: ostrom-products-api-openapi.yml
+  capability_id: BC-440.20
+  capability_id_l1: BC-440
+  capability_name: Price List Management
+  confidence: 0.7
+  evidence: GET /products  getProductPrices  Retrieve product prices; schema GetProductPriceItemResponse
+  reason: Despite the 'Products' tag, the single operation returns product prices — price book/list price
+    exposure rather than product lifecycle management.

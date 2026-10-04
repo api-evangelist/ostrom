@@ -156,6 +156,9 @@ apis:
   - type: OpenAPI
     url: openapi/ostrom-webhooks-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/ostrom-capability-edges.yml
+  name: Ostrom Business Capability Map
 - type: Overlay
   url: overlays/ostrom-openapi-overlay.yaml
 - type: DeveloperPortal
