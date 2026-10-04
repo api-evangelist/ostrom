@@ -249,18 +249,22 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestError429'
 components:
   schemas:
-    BadRequestError404:
+    GetWebhookResponse:
       type: object
       properties:
-        type:
+        id:
+          type: number
+          description: The id of the webhook
+        clientApplicationId:
           type: string
-          description: The type of the error
-        detail:
+          description: The id of the partner's client application that owns the webhook
+        url:
           type: string
-          description: A human-readable message providing more details about the error
+          description: The url where the webhook events will be sent
       example:
-        type: not_found
-        detail: information about not found object...
+        id: '12345'
+        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
+        url: https://partner-example.com/webhook
     GetWebhooksItemResponse:
       type: object
       properties:
@@ -277,7 +281,7 @@ components:
         id: '12345'
         clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
         url: https://partner-example.com/webhook
-    TooManyRequestError429:
+    UnauthorizedError401:
       type: object
       properties:
         type:
@@ -287,20 +291,8 @@ components:
           type: string
           description: A human-readable message providing more details about the error
       example:
-        type: too_many_requests
-        detail: API request limit per minute has been reached. Please try again later.
-    BadRequestError400:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: bad_request
-        detail: invalid fields array...
+        type: unauthorized
+        detail: Unauthorized API access.
     TestWebhookResponse:
       type: object
       properties:
@@ -349,7 +341,7 @@ components:
         id: '12345'
         clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
         url: https://partner-example.com/webhook
-    UnauthorizedError401:
+    BadRequestError400:
       type: object
       properties:
         type:
@@ -359,24 +351,32 @@ components:
           type: string
           description: A human-readable message providing more details about the error
       example:
-        type: unauthorized
-        detail: Unauthorized API access.
-    GetWebhookResponse:
+        type: bad_request
+        detail: invalid fields array...
+    BadRequestError404:
       type: object
       properties:
-        id:
-          type: number
-          description: The id of the webhook
-        clientApplicationId:
+        type:
           type: string
-          description: The id of the partner's client application that owns the webhook
-        url:
+          description: The type of the error
+        detail:
           type: string
-          description: The url where the webhook events will be sent
+          description: A human-readable message providing more details about the error
       example:
-        id: '12345'
-        clientApplicationId: ac11591e05vtf752a63vdi54b83k3f4
-        url: https://partner-example.com/webhook
+        type: not_found
+        detail: information about not found object...
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
     GetWebhooksResponse:
       type: object
       properties:

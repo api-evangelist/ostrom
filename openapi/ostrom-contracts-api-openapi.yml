@@ -309,7 +309,7 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestError429'
 components:
   schemas:
-    BadRequestError404:
+    UnauthorizedError401:
       type: object
       properties:
         type:
@@ -319,20 +319,16 @@ components:
           type: string
           description: A human-readable message providing more details about the error
       example:
-        type: not_found
-        detail: information about not found object...
-    TooManyRequestError429:
+        type: unauthorized
+        detail: Unauthorized API access.
+    GetContractsResponse:
       type: object
       properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: too_many_requests
-        detail: API request limit per minute has been reached. Please try again later.
+        data:
+          type: array
+          description: Contact data
+          items:
+            $ref: '#/components/schemas/GetContractsItemResponse'
     GetContractsEnergyConsumptionResponse:
       type: object
       properties:
@@ -341,34 +337,6 @@ components:
           description: The energy consumption data
           items:
             $ref: '#/components/schemas/GetContractsEnergyConsumptionItemResponse'
-    BadRequestError400:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: bad_request
-        detail: invalid fields array...
-    GetContractsAddressResponse:
-      type: object
-      description: The address of the contract
-      properties:
-        zip:
-          type: string
-          description: The zip code of the address
-        city:
-          type: string
-          description: The city of the address
-        street:
-          type: string
-          description: The street of the address
-        houseNumber:
-          type: string
-          description: The house number of the address
     GetContractsItemResponse:
       type: object
       properties:
@@ -412,14 +380,42 @@ components:
           city: Hamburg
           street: Mozartstr.
           houseNumber: '35'
-    GetContractsResponse:
+    BadRequestError400:
       type: object
       properties:
-        data:
-          type: array
-          description: Contact data
-          items:
-            $ref: '#/components/schemas/GetContractsItemResponse'
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: bad_request
+        detail: invalid fields array...
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
     GetContractsEnergyConsumptionItemResponse:
       type: object
       properties:
@@ -431,18 +427,22 @@ components:
           type: number
           description: The energy consumption in kWh
           example: 0.48
-    UnauthorizedError401:
+    GetContractsAddressResponse:
       type: object
+      description: The address of the contract
       properties:
-        type:
+        zip:
           type: string
-          description: The type of the error
-        detail:
+          description: The zip code of the address
+        city:
           type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: unauthorized
-        detail: Unauthorized API access.
+          description: The city of the address
+        street:
+          type: string
+          description: The street of the address
+        houseNumber:
+          type: string
+          description: The house number of the address
   securitySchemes:
     ClientAccessToken:
       type: oauth2
