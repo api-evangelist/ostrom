@@ -309,6 +309,46 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestError429'
 components:
   schemas:
+    GetContractsEnergyConsumptionResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: The energy consumption data
+          items:
+            $ref: '#/components/schemas/GetContractsEnergyConsumptionItemResponse'
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
+    BadRequestError400:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: bad_request
+        detail: invalid fields array...
+    GetContractsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: Contact data
+          items:
+            $ref: '#/components/schemas/GetContractsItemResponse'
     UnauthorizedError401:
       type: object
       properties:
@@ -321,22 +361,45 @@ components:
       example:
         type: unauthorized
         detail: Unauthorized API access.
-    GetContractsResponse:
+    TooManyRequestError429:
       type: object
       properties:
-        data:
-          type: array
-          description: Contact data
-          items:
-            $ref: '#/components/schemas/GetContractsItemResponse'
-    GetContractsEnergyConsumptionResponse:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
+    GetContractsEnergyConsumptionItemResponse:
       type: object
       properties:
-        data:
-          type: array
-          description: The energy consumption data
-          items:
-            $ref: '#/components/schemas/GetContractsEnergyConsumptionItemResponse'
+        date:
+          type: string
+          description: The date of the energy consumption data (start from)
+          example: '2023-10-22T01:00:00.000Z'
+        kWh:
+          type: number
+          description: The energy consumption in kWh
+          example: 0.48
+    GetContractsAddressResponse:
+      type: object
+      description: The address of the contract
+      properties:
+        zip:
+          type: string
+          description: The zip code of the address
+        city:
+          type: string
+          description: The city of the address
+        street:
+          type: string
+          description: The street of the address
+        houseNumber:
+          type: string
+          description: The house number of the address
     GetContractsItemResponse:
       type: object
       properties:
@@ -380,69 +443,6 @@ components:
           city: Hamburg
           street: Mozartstr.
           houseNumber: '35'
-    BadRequestError400:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: bad_request
-        detail: invalid fields array...
-    BadRequestError404:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: not_found
-        detail: information about not found object...
-    TooManyRequestError429:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: too_many_requests
-        detail: API request limit per minute has been reached. Please try again later.
-    GetContractsEnergyConsumptionItemResponse:
-      type: object
-      properties:
-        date:
-          type: string
-          description: The date of the energy consumption data (start from)
-          example: '2023-10-22T01:00:00.000Z'
-        kWh:
-          type: number
-          description: The energy consumption in kWh
-          example: 0.48
-    GetContractsAddressResponse:
-      type: object
-      description: The address of the contract
-      properties:
-        zip:
-          type: string
-          description: The zip code of the address
-        city:
-          type: string
-          description: The city of the address
-        street:
-          type: string
-          description: The street of the address
-        houseNumber:
-          type: string
-          description: The house number of the address
   securitySchemes:
     ClientAccessToken:
       type: oauth2

@@ -89,6 +89,18 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestError429'
 components:
   schemas:
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
     UnauthorizedError401:
       type: object
       properties:
@@ -101,6 +113,18 @@ components:
       example:
         type: unauthorized
         detail: Unauthorized API access.
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
     GetSpotPriceItemResponse:
       type: object
       properties:
@@ -164,30 +188,6 @@ components:
       example:
         type: bad_request
         detail: invalid fields array...
-    BadRequestError404:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: not_found
-        detail: information about not found object...
-    TooManyRequestError429:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: too_many_requests
-        detail: API request limit per minute has been reached. Please try again later.
   securitySchemes:
     ClientAccessToken:
       type: oauth2

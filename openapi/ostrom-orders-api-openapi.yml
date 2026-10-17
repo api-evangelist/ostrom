@@ -121,6 +121,34 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestError429'
 components:
   schemas:
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
+    GetOrdersAddressResponse:
+      type: object
+      description: The address of the order
+      properties:
+        zip:
+          type: string
+          description: The zip code of the address
+        city:
+          type: string
+          description: The city of the address
+        street:
+          type: string
+          description: The street of the address
+        houseNumber:
+          type: string
+          description: The house number of the address
     UnauthorizedError401:
       type: object
       properties:
@@ -141,6 +169,18 @@ components:
           description: Order data
           items:
             $ref: '#/components/schemas/GetOrdersItemResponse'
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
     GetOrdersItemResponse:
       type: object
       properties:
@@ -188,46 +228,6 @@ components:
       example:
         type: bad_request
         detail: invalid fields array...
-    BadRequestError404:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: not_found
-        detail: information about not found object...
-    TooManyRequestError429:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: too_many_requests
-        detail: API request limit per minute has been reached. Please try again later.
-    GetOrdersAddressResponse:
-      type: object
-      description: The address of the order
-      properties:
-        zip:
-          type: string
-          description: The zip code of the address
-        city:
-          type: string
-          description: The city of the address
-        street:
-          type: string
-          description: The street of the address
-        houseNumber:
-          type: string
-          description: The house number of the address
   securitySchemes:
     ClientAccessToken:
       type: oauth2

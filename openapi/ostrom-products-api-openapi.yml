@@ -78,6 +78,50 @@ paths:
                 $ref: '#/components/schemas/TooManyRequestError429'
 components:
   schemas:
+    BadRequestError404:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: not_found
+        detail: information about not found object...
+    UnauthorizedError401:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: unauthorized
+        detail: Unauthorized API access.
+    GetProductPriceResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          description: Product price data
+          items:
+            $ref: '#/components/schemas/GetProductPriceItemResponse'
+    TooManyRequestError429:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of the error
+        detail:
+          type: string
+          description: A human-readable message providing more details about the error
+      example:
+        type: too_many_requests
+        detail: API request limit per minute has been reached. Please try again later.
     GetProductPriceItemResponse:
       type: object
       properties:
@@ -133,30 +177,6 @@ components:
           type: number
           description: The yearly consumption in kWh
           example: 2000
-    UnauthorizedError401:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: unauthorized
-        detail: Unauthorized API access.
-    TooManyRequestError429:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: too_many_requests
-        detail: API request limit per minute has been reached. Please try again later.
     BadRequestError400:
       type: object
       properties:
@@ -169,26 +189,6 @@ components:
       example:
         type: bad_request
         detail: invalid fields array...
-    BadRequestError404:
-      type: object
-      properties:
-        type:
-          type: string
-          description: The type of the error
-        detail:
-          type: string
-          description: A human-readable message providing more details about the error
-      example:
-        type: not_found
-        detail: information about not found object...
-    GetProductPriceResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          description: Product price data
-          items:
-            $ref: '#/components/schemas/GetProductPriceItemResponse'
   securitySchemes:
     ClientAccessToken:
       type: oauth2
